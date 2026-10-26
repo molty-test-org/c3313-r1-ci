@@ -50,3 +50,8 @@ test("truncate returns short text unchanged", () => {
   assert.strictEqual(truncate("ab", 4), "ab");
   assert.strictEqual(truncate("", 4), "");
 });
+test("truncate returns a lone ellipsis for zero or negative max", () => {
+  assert.strictEqual(truncate("abc", 0), "…");
+  assert.strictEqual(truncate("abc", -1), "…");
+  assert.strictEqual(truncate("", 0), "");
+});
