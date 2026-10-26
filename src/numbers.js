@@ -21,4 +21,13 @@ function formatBytes(bytes) {
   return `${rounded} ${UNITS[unit]}`;
 }
 
-module.exports = { formatBytes };
+const ORDINAL_SUFFIXES = { 1: "st", 2: "nd", 3: "rd" };
+
+function ordinal(n) {
+  if (!Number.isInteger(n) || n < 0) {
+    throw new RangeError("n must be a non-negative integer");
+  }
+  return `${n}${ORDINAL_SUFFIXES[n % 10] || "th"}`;
+}
+
+module.exports = { formatBytes, ordinal };
