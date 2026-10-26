@@ -31,3 +31,22 @@ test("truncate shortens with an ellipsis", () => {
   assert.strictEqual(truncate("abcdef", 4), "abc…");
   assert.strictEqual(truncate("abc", 4), "abc");
 });
+test("slugify returns an empty string for blank or punctuation-only text", () => {
+  assert.strictEqual(slugify(""), "");
+  assert.strictEqual(slugify("   \t "), "");
+  assert.strictEqual(slugify("!?-.,"), "");
+});
+test("slugify lowercases and hyphenates words", () => {
+  assert.strictEqual(slugify("  Stable Lower CASE  title 2 "), "stable-lower-case-title-2");
+});
+test("truncate returns text unchanged when its length equals max", () => {
+  assert.strictEqual(truncate("abcd", 4), "abcd");
+});
+test("truncate adds one ellipsis that counts toward max", () => {
+  assert.strictEqual(truncate("abcdef", 4), "abc\u2026");
+  assert.strictEqual(truncate("abcdef", 4).length, 4);
+});
+test("truncate returns short text unchanged", () => {
+  assert.strictEqual(truncate("ab", 4), "ab");
+  assert.strictEqual(truncate("", 4), "");
+});
