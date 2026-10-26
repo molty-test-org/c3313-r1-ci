@@ -11,6 +11,6 @@ function truncate(text, max) {
   return s.length <= max ? s : s.slice(0, Math.max(0, max - 1)) + "…";
 }
 function titleCase(text) {
-  return String(text).replace(/(^|\s)(\S)/g, (_, space, ch) => space + ch.toUpperCase());
+  return String(text).replace(/(^|\s)(\S)/gu, (_, space, ch) => space + ch.toUpperCase());
 }
 module.exports = { countWords, slugify, truncate, titleCase };

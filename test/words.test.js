@@ -27,6 +27,10 @@ test("titleCase keeps punctuation within words", () => {
 test("titleCase preserves repeated and mixed whitespace", () => {
   assert.strictEqual(titleCase("one  two\tthree\nfour"), "One  Two\tThree\nFour");
 });
+test("titleCase uppercases astral letters as whole characters", () => {
+  assert.strictEqual(titleCase("\u{10428}x"), "\u{10400}x");
+  assert.strictEqual(titleCase("hi \u{10428}x"), "Hi \u{10400}x");
+});
 test("titleCase returns empty input unchanged", () => {
   assert.strictEqual(titleCase(""), "");
 });
