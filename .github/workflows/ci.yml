@@ -1,0 +1,16 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # A file named .ci-fail in the repo root turns the run red.
+      - name: Fail switch
+        run: test ! -f .ci-fail
+      - run: npm test
