@@ -1,4 +1,5 @@
 // Small text helpers the fixture app exposes.
+const { slugify } = require("./slug");
 function countWords(text) {
   const t = String(text).trim();
   return t === "" ? 0 : t.split(/\s+/).length;
@@ -13,9 +14,6 @@ function wordFrequencies(text) {
 }
 function estimateReadingTime(text) {
   return countWords(text) / 200;
-}
-function slugify(text) {
-  return String(text).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 function truncate(text, max) {
   const s = String(text);
