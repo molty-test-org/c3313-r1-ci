@@ -1,1 +1,1 @@
-{ "name": "c3313-r1-ci", "version": "1.0.0", "private": true, "scripts": { "test": "node --test" } }
+{ "name": "c3313-r1-ci", "version": "1.0.0", "private": true, "bin": { "text-stats": "./bin/text-stats.js" }, "scripts": { "test": "node --test" } }
