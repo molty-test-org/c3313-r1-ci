@@ -17,3 +17,12 @@ test("buildReport counts newline-separated segments as lines", () => {
 test("buildReport counts a trailing newline as an extra empty line", () => {
   assert.deepStrictEqual(buildReport("a\nb\n"), { words: 2, characters: 4, lines: 3 });
 });
+test("buildReport coerces non-string input with String()", () => {
+  assert.deepStrictEqual(buildReport(42), { words: 1, characters: 2, lines: 1 });
+});
+test("buildReport returns a fresh object with equal contents on each call", () => {
+  const first = buildReport("one two");
+  const second = buildReport("one two");
+  assert.deepStrictEqual(first, second);
+  assert.notStrictEqual(first, second);
+});
