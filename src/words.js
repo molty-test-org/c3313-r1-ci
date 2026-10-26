@@ -42,6 +42,6 @@ function wrapText(text, width) {
 }
 function isPalindrome(text) {
   const t = String(text).toLowerCase().replace(/\s+/g, "");
-  return t === t.split("").reverse().join("");
+  return t === Array.from(t).reverse().join("");
 }
 module.exports = { countWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText, isPalindrome };

@@ -89,6 +89,9 @@ test("isPalindrome keeps punctuation significant", () => {
   assert.strictEqual(isPalindrome("A man, a plan, a canal: Panama"), false);
   assert.strictEqual(isPalindrome("racecar!"), false);
 });
+test("isPalindrome keeps a single emoji intact", () => {
+  assert.strictEqual(isPalindrome("😊"), true);
+});
 test("isPalindrome returns true for empty text", () => {
   assert.strictEqual(isPalindrome(""), true);
   assert.strictEqual(isPalindrome("   "), true);
