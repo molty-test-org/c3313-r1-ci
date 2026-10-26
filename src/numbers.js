@@ -1,5 +1,6 @@
 const UNITS = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 const BASE = 1024;
+const DECIMALS = 2;
 
 function formatBytes(bytes) {
   if (typeof bytes !== "number" || !Number.isFinite(bytes) || bytes < 0) {
@@ -11,11 +12,11 @@ function formatBytes(bytes) {
     value /= BASE;
     unit++;
   }
-  let rounded = unit === 0 ? Math.round(value) : Math.round(value * 100) / 100;
+  let rounded = unit === 0 ? Math.round(value) : Math.round(value * 10 ** DECIMALS) / 10 ** DECIMALS;
   if (rounded >= BASE && unit < UNITS.length - 1) {
     value /= BASE;
     unit++;
-    rounded = Math.round(value * 100) / 100;
+    rounded = Math.round(value * 10 ** DECIMALS) / 10 ** DECIMALS;
   }
   return `${rounded} ${UNITS[unit]}`;
 }
