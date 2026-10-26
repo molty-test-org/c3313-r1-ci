@@ -43,7 +43,7 @@ test("truncate returns text unchanged when its length equals max", () => {
   assert.strictEqual(truncate("abcd", 4), "abcd");
 });
 test("truncate adds one ellipsis that counts toward max", () => {
-  assert.strictEqual(truncate("abcdef", 4), "abc\u2026");
+  assert.strictEqual(truncate("abcdef", 4), "abc…");
   assert.strictEqual(truncate("abcdef", 4).length, 4);
 });
 test("truncate returns short text unchanged", () => {
