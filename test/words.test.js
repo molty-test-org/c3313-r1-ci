@@ -54,4 +54,5 @@ test("truncate returns a lone ellipsis for zero or negative max", () => {
   assert.strictEqual(truncate("abc", 0), "…");
   assert.strictEqual(truncate("abc", -1), "…");
   assert.strictEqual(truncate("", 0), "");
+  assert.strictEqual(truncate("", -1), "…");
 });
