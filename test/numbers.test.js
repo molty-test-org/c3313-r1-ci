@@ -19,11 +19,14 @@ test("formatBytes switches units at 1024 multiples", () => {
 });
 test("formatBytes rolls over when rounding reaches the next unit", () => {
   assert.strictEqual(formatBytes(1024 * 1024 - 1), "1 MB");
-  assert.strictEqual(formatBytes(1023.95 * 1024), "1 MB");
+  assert.strictEqual(formatBytes(1023.996 * 1024), "1 MB");
+  assert.strictEqual(formatBytes(1023.95 * 1024), "1023.95 KB");
 });
-test("formatBytes shows at most one decimal without a trailing .0", () => {
+test("formatBytes shows at most two decimals without trailing zeros", () => {
   assert.strictEqual(formatBytes(1024 * 2), "2 KB");
   assert.strictEqual(formatBytes(1024 + 102), "1.1 KB");
+  assert.strictEqual(formatBytes(1536), "1.5 KB");
+  assert.strictEqual(formatBytes(1234567), "1.18 MB");
 });
 test("formatBytes rejects invalid numbers", () => {
   for (const bytes of [NaN, -1, Infinity, "1024", null, undefined]) {

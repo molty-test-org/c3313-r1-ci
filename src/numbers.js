@@ -11,11 +11,11 @@ function formatBytes(bytes) {
     value /= BASE;
     unit++;
   }
-  let rounded = unit === 0 ? Math.round(value) : Math.round(value * 10) / 10;
+  let rounded = unit === 0 ? Math.round(value) : Math.round(value * 100) / 100;
   if (rounded >= BASE && unit < UNITS.length - 1) {
     value /= BASE;
     unit++;
-    rounded = Math.round(value * 10) / 10;
+    rounded = Math.round(value * 100) / 100;
   }
   return `${rounded} ${UNITS[unit]}`;
 }
