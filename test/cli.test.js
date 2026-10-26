@@ -66,6 +66,21 @@ test("reports empty and blank first lines without borrowing later lines", () => 
   }
 });
 
+test("treats a whitespace-only first line as blank", () => {
+  withFile("   \nOne two", (file) => {
+    const result = run(file);
+    assert.equal(result.status, 0);
+    assert.equal(result.stderr, "");
+    assert.deepEqual(JSON.parse(result.stdout), {
+      wordCount: 2,
+      wordFrequencies: { one: 1, two: 1 },
+      readingTimeMinutes: 0.01,
+      slug: "",
+      excerpt: "",
+    });
+  });
+});
+
 test("rejects a missing argument without stdout", () => {
   const result = run();
   assert.notEqual(result.status, 0);

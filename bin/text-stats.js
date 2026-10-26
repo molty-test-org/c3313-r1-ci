@@ -9,7 +9,8 @@ if (!filePath || extra.length) {
 } else {
   try {
     const text = fs.readFileSync(filePath, "utf8");
-    const firstLine = text.split(/\r?\n/, 1)[0];
+    const rawFirstLine = text.split(/\r?\n/, 1)[0];
+    const firstLine = rawFirstLine.trim() === "" ? "" : rawFirstLine;
     const report = {
       wordCount: countWords(text),
       wordFrequencies: wordFrequencies(text),
