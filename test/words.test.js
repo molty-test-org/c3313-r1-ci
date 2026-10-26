@@ -2,6 +2,7 @@ const test = require("node:test");
 const assert = require("node:assert");
 const { countWords, slugify, truncate } = require("../src/words");
 const { wordFrequencies, estimateReadingTime, wrapText } = require("../src/words");
+const { isPalindrome } = require("../src/words");
 
 test("wrapText fits words exactly at the boundary", () => {
   assert.strictEqual(wrapText("one two six", 7), "one two\nsix");
@@ -75,4 +76,23 @@ test("truncate returns a lone ellipsis for zero or negative max", () => {
   assert.strictEqual(truncate("abc", -1), "…");
   assert.strictEqual(truncate("", 0), "");
   assert.strictEqual(truncate("", -1), "…");
+});
+test("isPalindrome ignores case and whitespace", () => {
+  assert.strictEqual(isPalindrome("Racecar"), true);
+  assert.strictEqual(isPalindrome("A  man a plan a canal Panama"), true);
+});
+test("isPalindrome rejects non-palindromes", () => {
+  assert.strictEqual(isPalindrome("hello"), false);
+  assert.strictEqual(isPalindrome("ab c"), false);
+});
+test("isPalindrome keeps punctuation significant", () => {
+  assert.strictEqual(isPalindrome("A man, a plan, a canal: Panama"), false);
+  assert.strictEqual(isPalindrome("racecar!"), false);
+});
+test("isPalindrome keeps a single emoji intact", () => {
+  assert.strictEqual(isPalindrome("😊"), true);
+});
+test("isPalindrome returns true for empty text", () => {
+  assert.strictEqual(isPalindrome(""), true);
+  assert.strictEqual(isPalindrome("   "), true);
 });
