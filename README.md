@@ -5,9 +5,11 @@ Holds no real data.
 
 ## Text helpers
 
-Import the CommonJS module with `require("./src/words")`. It exports `countWords`, `slugify`, `truncate`, `wordFrequencies`, `estimateReadingTime`, and `wrapText`.
+Import the CommonJS module with `require("./src/words")`. It exports `countWords`, `slugify`, `truncate`, `wordFrequencies`, `estimateReadingTime`, `wrapText`, and `indentLines`.
 
 `wrapText(text, width)` wraps whitespace-delimited words into lines of at most `width` characters, normalizing whitespace to single spaces within lines. Words longer than `width` stay intact on their own lines, and no line has trailing spaces. Empty or whitespace-only text returns `""`; `width` must be a positive integer. For example, `wrapText("one two six", 7)` returns `"one two\nsix"`.
+
+`indentLines(text, n)` prefixes each line of `text` with `n` spaces and leaves empty lines empty; `n` must be a non-negative integer. For example, `indentLines("one\n\ntwo", 2)` returns `"  one\n\n  two"`.
 
 `wordFrequencies(text)` returns a plain object mapping lowercase words to occurrence counts. It treats punctuation as a word separator (including at word edges) and recognizes Unicode letters, numbers and combining marks. Text is normalized to Unicode NFC before counting, so `"café cafe\u0301"` (precomposed and decomposed accent) returns `{ café: 2 }`; for example, `wordFrequencies("Hello, HELLO! world.")` returns `{ hello: 2, world: 1 }`. Empty, whitespace-only, or punctuation-only text returns `{}`. This tokenizer differs from `countWords`, which retains its whitespace-separated count (so `"one,two"` counts as one word there but two frequency entries).
 

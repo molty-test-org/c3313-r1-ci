@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 const { countWords, slugify, truncate } = require("../src/words");
-const { wordFrequencies, estimateReadingTime, wrapText } = require("../src/words");
+const { wordFrequencies, estimateReadingTime, wrapText, indentLines } = require("../src/words");
 
 test("wrapText fits words exactly at the boundary", () => {
   assert.strictEqual(wrapText("one two six", 7), "one two\nsix");
@@ -21,6 +21,16 @@ test("wrapText normalizes whitespace without trailing spaces", () => {
 test("wrapText requires a positive integer width", () => {
   for (const width of [0, -1, 2.5, NaN, "3"]) {
     assert.throws(() => wrapText("one two", width), RangeError);
+  }
+});
+test("indentLines prefixes non-empty lines and leaves blank lines empty", () => {
+  assert.strictEqual(indentLines("one\n\ntwo", 2), "  one\n\n  two");
+  assert.strictEqual(indentLines("one\ntwo", 0), "one\ntwo");
+  assert.strictEqual(indentLines("", 2), "");
+});
+test("indentLines requires a non-negative integer count", () => {
+  for (const n of [-1, 1.5, NaN, "2"]) {
+    assert.throws(() => indentLines("one", n), RangeError);
   }
 });
 test("countWords counts whitespace-separated words", () => {

@@ -40,4 +40,14 @@ function wrapText(text, width) {
   lines.push(line);
   return lines.join("\n");
 }
-module.exports = { countWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText };
+function indentLines(text, n) {
+  if (!Number.isInteger(n) || n < 0) {
+    throw new RangeError("n must be a non-negative integer");
+  }
+  const prefix = " ".repeat(n);
+  return String(text)
+    .split("\n")
+    .map((line) => (line === "" ? line : prefix + line))
+    .join("\n");
+}
+module.exports = { countWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText, indentLines };
