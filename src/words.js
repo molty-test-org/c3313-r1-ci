@@ -40,4 +40,8 @@ function wrapText(text, width) {
   lines.push(line);
   return lines.join("\n");
 }
-module.exports = { countWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText };
+function isPalindrome(text) {
+  const t = String(text).toLowerCase().replace(/\s+/g, "");
+  return t === t.split("").reverse().join("");
+}
+module.exports = { countWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText, isPalindrome };
