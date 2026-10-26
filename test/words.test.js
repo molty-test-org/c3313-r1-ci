@@ -84,6 +84,10 @@ test("reverseWords reverses token order and keeps punctuation attached", () => {
 test("reverseWords joins with single spaces across uneven whitespace", () => {
   assert.strictEqual(reverseWords("  one   two\tthree\n"), "three two one");
 });
+test("reverseWords trims leading and trailing spaces before reversing", () => {
+  assert.strictEqual(reverseWords("  one two  "), "two one");
+  assert.strictEqual(reverseWords("\tone two\n"), "two one");
+});
 test("reverseWords returns empty text for blank input", () => {
   assert.strictEqual(reverseWords(""), "");
   assert.strictEqual(reverseWords("   \t\n "), "");

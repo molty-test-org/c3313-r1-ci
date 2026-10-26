@@ -41,6 +41,7 @@ function wrapText(text, width) {
   return lines.join("\n");
 }
 function reverseWords(text) {
-  return String(text).trim().split(/\s+/).reverse().join(" ");
+  const t = String(text).trim();
+  return t === "" ? "" : t.split(/\s+/).reverse().join(" ");
 }
 module.exports = { countWords, reverseWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText };
