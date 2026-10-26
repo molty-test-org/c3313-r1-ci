@@ -33,6 +33,9 @@ test("indentLines requires a non-negative integer count", () => {
     assert.throws(() => indentLines("one", n), RangeError);
   }
 });
+test("indentLines throws RangeError for a negative count", () => {
+  assert.throws(() => indentLines("one", -1), RangeError);
+});
 test("countWords counts whitespace-separated words", () => {
   assert.strictEqual(countWords("one two  three"), 3);
   assert.strictEqual(countWords("   "), 0);
