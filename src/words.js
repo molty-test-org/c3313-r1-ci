@@ -4,7 +4,7 @@ function countWords(text) {
   return t === "" ? 0 : t.split(/\s+/).length;
 }
 function wordFrequencies(text) {
-  const words = String(text).toLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
+  const words = String(text).normalize("NFC").toLowerCase().match(/[\p{L}\p{N}\p{M}]+/gu) || [];
   const frequencies = new Map();
   for (const word of words) {
     frequencies.set(word, (frequencies.get(word) || 0) + 1);

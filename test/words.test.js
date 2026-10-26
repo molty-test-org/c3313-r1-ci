@@ -11,6 +11,9 @@ test("wordFrequencies normalizes case and punctuation", () => {
   assert.deepStrictEqual(wordFrequencies("Hello, hello! WORLD. world?"), { hello: 2, world: 2 });
   assert.deepStrictEqual(wordFrequencies("one-two, one; two"), { one: 2, two: 2 });
 });
+test("wordFrequencies treats decomposed and precomposed accents as one word", () => {
+  assert.deepStrictEqual(wordFrequencies("café cafe\u0301"), { café: 2 });
+});
 test("wordFrequencies returns an empty object for empty or punctuation-only text", () => {
   assert.deepStrictEqual(wordFrequencies(""), {});
   assert.deepStrictEqual(wordFrequencies("  !?  "), {});
