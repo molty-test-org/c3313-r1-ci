@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { formatBytes } = require("../src/numbers");
+const { formatBytes, clamp } = require("../src/numbers");
 
 test("formatBytes formats zero as bytes", () => {
   assert.strictEqual(formatBytes(0), "0 B");
@@ -32,4 +32,30 @@ test("formatBytes rejects invalid numbers", () => {
   for (const bytes of [NaN, -1, Infinity, "1024", null, undefined]) {
     assert.throws(() => formatBytes(bytes), RangeError);
   }
+});
+test("clamp returns the bound for values outside an inclusive range", () => {
+  assert.strictEqual(clamp(-5, 0, 10), 0);
+  assert.strictEqual(clamp(15, 0, 10), 10);
+});
+test("clamp returns bounds unchanged when the value sits on them", () => {
+  assert.strictEqual(clamp(0, 0, 10), 0);
+  assert.strictEqual(clamp(10, 0, 10), 10);
+});
+test("clamp returns interior values unchanged", () => {
+  assert.strictEqual(clamp(5, 0, 10), 5);
+  assert.strictEqual(clamp(-0.5, -1, 1), -0.5);
+});
+test("clamp accepts equal bounds", () => {
+  assert.strictEqual(clamp(7, 3, 3), 3);
+  assert.strictEqual(clamp(3, 3, 3), 3);
+});
+test("clamp rejects non-number or non-finite arguments", () => {
+  for (const v of [NaN, Infinity, -Infinity, "5", null, undefined]) {
+    assert.throws(() => clamp(v, 0, 10), RangeError);
+    assert.throws(() => clamp(5, v, 10), RangeError);
+    assert.throws(() => clamp(5, 0, v), RangeError);
+  }
+});
+test("clamp rejects inverted bounds", () => {
+  assert.throws(() => clamp(5, 10, 0), RangeError);
 });

@@ -21,4 +21,18 @@ function formatBytes(bytes) {
   return `${rounded} ${UNITS[unit]}`;
 }
 
-module.exports = { formatBytes };
+function clamp(value, min, max) {
+  for (const arg of [value, min, max]) {
+    if (typeof arg !== "number" || !Number.isFinite(arg)) {
+      throw new RangeError("value, min and max must be finite numbers");
+    }
+  }
+  if (min > max) {
+    throw new RangeError("min must be less than or equal to max");
+  }
+  if (value < min) return min;
+  if (value > max) return max;
+  return value;
+}
+
+module.exports = { formatBytes, clamp };
