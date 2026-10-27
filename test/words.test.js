@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 const { countWords, slugify, truncate } = require("../src/words");
-const { wordFrequencies, estimateReadingTime, wrapText } = require("../src/words");
+const { wordFrequencies, estimateReadingTime, wrapText, reverseWords } = require("../src/words");
 
 test("wrapText fits words exactly at the boundary", () => {
   assert.strictEqual(wrapText("one two six", 7), "one two\nsix");
@@ -75,4 +75,19 @@ test("truncate returns a lone ellipsis for zero or negative max", () => {
   assert.strictEqual(truncate("abc", -1), "…");
   assert.strictEqual(truncate("", 0), "");
   assert.strictEqual(truncate("", -1), "…");
+});
+test("reverseWords reverses the order of words", () => {
+  assert.strictEqual(reverseWords("one two three"), "three two one");
+  assert.strictEqual(reverseWords("single"), "single");
+});
+test("reverseWords keeps punctuation and case within each word", () => {
+  assert.strictEqual(reverseWords("Hello, World! ok."), "ok. World! Hello,");
+  assert.strictEqual(reverseWords("don't STOP-now"), "STOP-now don't");
+});
+test("reverseWords normalizes mixed whitespace to single spaces", () => {
+  assert.strictEqual(reverseWords("  one\t two\n\nthree  "), "three two one");
+});
+test("reverseWords returns empty text for blank input", () => {
+  assert.strictEqual(reverseWords(""), "");
+  assert.strictEqual(reverseWords(" \t\n "), "");
 });
