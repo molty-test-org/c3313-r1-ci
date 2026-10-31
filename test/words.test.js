@@ -76,3 +76,9 @@ test("truncate returns a lone ellipsis for zero or negative max", () => {
   assert.strictEqual(truncate("", 0), "");
   assert.strictEqual(truncate("", -1), "…");
 });
+test("reverse returns the characters in reverse order", () => {
+  assert.strictEqual(reverse("abc"), "cba");
+});
+test("reverse returns an empty string for an empty string", () => {
+  assert.strictEqual(reverse(""), "");
+});
