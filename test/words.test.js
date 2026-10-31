@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 const { countWords, slugify, truncate } = require("../src/words");
-const { wordFrequencies, estimateReadingTime, wrapText } = require("../src/words");
+const { wordFrequencies, estimateReadingTime, wrapText, reverse } = require("../src/words");
 
 test("wrapText fits words exactly at the boundary", () => {
   assert.strictEqual(wrapText("one two six", 7), "one two\nsix");
@@ -75,4 +75,10 @@ test("truncate returns a lone ellipsis for zero or negative max", () => {
   assert.strictEqual(truncate("abc", -1), "…");
   assert.strictEqual(truncate("", 0), "");
   assert.strictEqual(truncate("", -1), "…");
+});
+test("reverse returns the characters in reverse order", () => {
+  assert.strictEqual(reverse("abc"), "cba");
+});
+test("reverse returns an empty string for an empty string", () => {
+  assert.strictEqual(reverse(""), "");
 });
