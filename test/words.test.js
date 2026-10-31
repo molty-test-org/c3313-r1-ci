@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 const { countWords, slugify, truncate } = require("../src/words");
-const { wordFrequencies, estimateReadingTime, wrapText } = require("../src/words");
+const { wordFrequencies, estimateReadingTime, wrapText, reverse } = require("../src/words");
 
 test("wrapText fits words exactly at the boundary", () => {
   assert.strictEqual(wrapText("one two six", 7), "one two\nsix");

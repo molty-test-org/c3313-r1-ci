@@ -40,4 +40,7 @@ function wrapText(text, width) {
   lines.push(line);
   return lines.join("\n");
 }
-module.exports = { countWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText };
+function reverse(s) {
+  return Array.from(String(s)).reverse().join("");
+}
+module.exports = { countWords, slugify, truncate, wordFrequencies, estimateReadingTime, wrapText, reverse };
